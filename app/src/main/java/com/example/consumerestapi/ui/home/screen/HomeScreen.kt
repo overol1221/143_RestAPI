@@ -114,7 +114,7 @@ fun KontakCard (
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = kontak.name,
+                    text = kontak.nama,
                     style = MaterialTheme.typography.titleLarge,
                 )
                 Spacer(Modifier.weight(1f))
@@ -123,7 +123,7 @@ fun KontakCard (
                     contentDescription = null,
                 )
                 Text(
-                    text = kontak.alamat,
+                    text = kontak.email,
                     style = MaterialTheme.typography.titleMedium
                 )
             }
