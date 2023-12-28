@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.example.consumerestapi.navigation.DestinasiNavigasi
 import com.example.consumerestapi.ui.kontak.viewmodel.InsertUiEvent
 import com.example.consumerestapi.ui.kontak.viewmodel.InsertUiState
 
@@ -95,4 +96,9 @@ fun EntryKontakBody(
             Text(text = "Simpan")
         }
     }
+}
+
+object DestinasiEntry : DestinasiNavigasi {
+    override val route = "item_entry"
+    override val titleRes = "Entry Siswa"
 }
