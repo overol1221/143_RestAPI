@@ -35,14 +35,24 @@ import com.example.consumerestapi.model.Kontak
 import com.example.consumerestapi.ui.home.viewmodel.KontakUiState
 
 @Composable
-fun HomeScreen(
-    kontakUiState: KontakUiState, retryAction: () -> Unit, modifier: Modifier = Modifier
+fun HomeStatus(
+    kontakUiState: KontakUiState,
+    retryAction: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDeleteClick: (Kontak) -> Unit = {},
+    onDetailClick: (Int) -> Unit
 ) {
 
     when (kontakUiState) {
         is KontakUiState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
         is KontakUiState.Success -> KontakLayout(
-            kontak = kontakUiState.kontak, modifier = modifier.fillMaxWidth()
+            kontak = kontakUiState.kontak, modifier = modifier.fillMaxWidth(),
+            onDetailClick = {
+                onDetailClick(it.id)
+            },
+            onDeleteClick = {
+                onDeleteClick(it)
+            }
         )
 
         is KontakUiState.Error -> OnError(retryAction, modifier = modifier.fillMaxSize())
@@ -83,7 +93,12 @@ fun OnError(retryAction: () -> Unit, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun KontakLayout(kontak: List<Kontak>, modifier: Modifier = Modifier) {
+fun KontakLayout(
+    kontak: List<Kontak>,
+    modifier: Modifier = Modifier,
+    onDetailClick: (Kontak) -> Unit,
+    onDeleteClick: (Kontak) -> Unit = {}
+    ) {
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
@@ -92,7 +107,10 @@ fun KontakLayout(kontak: List<Kontak>, modifier: Modifier = Modifier) {
         items(kontak) { kontak ->
             KontakCard(kontak = kontak, modifier = Modifier
                 .fillMaxWidth()
-                .clickable { })
+                .clickable { onDetailClick(kontak) },
+                onDeleteClick = {
+                    onDeleteClick(kontak)
+                })
         }
     }
 
